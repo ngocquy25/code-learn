@@ -2,6 +2,10 @@ import React from 'react';
 import SplitPane from 'react-split-pane';
 import './App.css';
 import './styles/styles.css'
+import EditorSection from './components/layout/editor-section';
+import ProblemSection from './components/layout/problem-section';
+import ResultSection from './components/layout/result-section';
+import TestcaseSection from './components/layout/testcase-section';
 
 function App() {
   return (
@@ -12,28 +16,22 @@ function App() {
       minSize={200}
       maxSize={800}
       >
-        <div class="problem-section"></div>
+        <ProblemSection/>
         <SplitPane
         split='horizontal'
         defaultSize='55%'
         minSize={300}
         maxSize={500}
         >
-          <div class="editor-section">
-
-          </div>
+          <EditorSection/>
           <SplitPane
           split='horizontal'
           defaultSize='70%'
           maxSize={400}
           primary='second'
           >
-            <div class="testcase-section">
-
-            </div>
-            <div class="result-section">
-
-            </div>
+            <TestcaseSection/>
+            <ResultSection/>
           </SplitPane>
         </SplitPane>
       </SplitPane>
