@@ -6,6 +6,7 @@ import EditorSection from './components/layout/editor-section';
 import ProblemSection from './components/layout/problem-section';
 import ResultSection from './components/layout/result-section';
 import TestcaseSection from './components/layout/testcase-section';
+import {Container, Row} from 'react-bootstrap';
 
 function App() {
   return (
@@ -13,27 +14,15 @@ function App() {
       <SplitPane
       split='vertical'
       defaultSize='45%'
-      minSize={200}
-      maxSize={800}
+      minSize={400}
+      maxSize={900}
       >
         <ProblemSection/>
-        <SplitPane
-        split='horizontal'
-        defaultSize='55%'
-        minSize={300}
-        maxSize={500}
-        >
+        <div class="left">
           <EditorSection/>
-          <SplitPane
-          split='horizontal'
-          defaultSize='70%'
-          maxSize={400}
-          primary='second'
-          >
-            <TestcaseSection/>
-            <ResultSection/>
-          </SplitPane>
-        </SplitPane>
+          <TestcaseSection/>
+          <ResultSection/>
+        </div>
       </SplitPane>
     </div>
   );
