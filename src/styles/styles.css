@@ -1,6 +1,6 @@
 .Resizer {
     background: #000;
-    opacity: 0.2;
+    opacity: 0.1;
     z-index: 1;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -30,8 +30,8 @@
 }
 
 .Resizer.vertical {
-    width: 11px;
-    margin: 0 -5px;
+    width: 20px;
+    margin: 0 -10px;
     border-left: 5px solid rgba(255, 255, 255, 0);
     border-right: 5px solid rgba(255, 255, 255, 0);
     cursor: col-resize;
@@ -51,38 +51,51 @@
 .problem-section {
     width: 100%;
     height: 100%;
+    text-align: left;
+    padding: 50px;
     background-color: white;
+    margin-right: 5px;
 }
 
-.left {
+.right {
     width: 100%;
     height: 100%;
+    margin-left: 5px;
 }
 
 .editor-section {
     width: 100%;
-    height: 50%;
+    height: 55%;
 }
 
 .testcase-section {
     width: 100%;
-    height: 20%;
-    background-color: gray;
-    color: white;
+    height: 100%;
+    background-color: whitesmoke;
+    color: black;
+    text-align: left;
+    padding: 15px;
 }
 
-.result-section {
-    width: 100%;
-    height: 30%;
-    background-color: rgb(36, 0, 0);
-    color: white;
-}
-
-.title {
-    
+.quest-title {
+    font-size: 30px;
+    margin-bottom: 20px;
 }
 
 .content {
+    font-size: 18px;
+}
+
+.test-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#testcase-tabs {
     text-align: left;
-    margin: 40px;
+}
+
+#test-content {
+    padding-left: 20px;
+    line-height: 1em;
 }
