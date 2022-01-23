@@ -60,7 +60,6 @@ function App() {
       defaultSize='45%'
       minSize={400}
       maxSize={900}
-      id="split-pane"
       >
         <Problem question={currentQuestion}/>
         <div class="right">
