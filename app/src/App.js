@@ -21,7 +21,7 @@ function App() {
     fetch("http://localhost:3001")
       .then(res => res.json())
       .then(data => {
-          setQuestion(data.data);
+          setQuestion(data);
         },
         (error) => {
           setQuestion(error);
