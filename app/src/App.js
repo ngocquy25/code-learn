@@ -42,7 +42,7 @@ function App() {
           }
         }}
         prevPage={() => {
-          if (currentPage == 1) {
+          if (currentPage === 1) {
             setCurrentPage(1)
           } else {
             setCurrentPage(currentPage - 1)
