@@ -20,7 +20,7 @@ function App() {
           setQuestion(data);
         },
         (error) => {
-          setQuestion(error)
+          setQuestion(error);
         }
       )
   }, []);
