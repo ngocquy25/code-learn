@@ -13,10 +13,6 @@ function App() {
   const [questions, setQuestion] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // const changePage = () => {
-
-  // }
-
   useEffect(() => {
     fetch("http://localhost:3001")
       .then(res => res.json())
