@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import SplitPane from 'react-split-pane';
 import Editor from './components/layout/Editor';
 import Problem from './components/layout/Problem';
@@ -12,9 +11,10 @@ import './styles/styles.css';
 function App() {
   const [questions, setQuestion] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [code, setCode] = useState('');
 
   useEffect(() => {
-    fetch("http://localhost:3001")
+    fetch("https://codelearnapi.herokuapp.com")
       .then(res => res.json())
       .then(data => {
           setQuestion(data);
@@ -24,6 +24,11 @@ function App() {
         }
       )
   }, []);
+
+  const changeCode = (value) => {
+    console.log(value);
+    setCode(value);
+  }
 
   // Get current question
   const totalQuests = questions.length;
@@ -58,9 +63,9 @@ function App() {
       maxSize={900}
       >
         <Problem question={currentQuestion}/>
-        <div class="right">
-          <Editor/>
-          <Testcase question={currentQuestion}/>
+        <div className="right">
+          <Editor code={code} onChange={changeCode}/>
+          <Testcase question={currentQuestion} code={code}/>
         </div>
       </SplitPane>
     </div>
