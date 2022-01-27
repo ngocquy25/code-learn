@@ -10,13 +10,13 @@
     background-clip: padding-box;
 }
 
-/* .Resizer:hover {
+.Resizer:hover {
     -webkit-transition: all 2s ease;
     transition: all 2s ease;
 }
 
 .Resizer.horizontal {
-    height: 11px;
+    height: 10px;
     margin: -5px 0;
     border-top: 5px solid rgba(255, 255, 255, 0);
     border-bottom: 5px solid rgba(255, 255, 255, 0);
@@ -25,9 +25,9 @@
 }
 
 .Resizer.horizontal:hover {
-    border-top: 5px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 5px solid rgba(0, 0, 0, 0.5);
-} */
+    border-top: 5px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 5px solid rgba(255, 255, 255, 0.5);
+}
 
 .Resizer.vertical {
     width: 20px;
@@ -48,10 +48,34 @@
     border-color: transparent;
 }
 
-#nav {
-    justify-content: center;
-    margin-top: 10px;
+.container {
+    
+}
+
+.nav {
+    padding-top: 10px;
+    padding-bottom: 0;
+}
+
+#paginate {
+    margin: 0 4px;
+    border-radius: 3px;
+    background-color: #000;
+    border-color: #000;
+    color: white;
+}
+
+#paginate-active {
+    margin: 0 4px;
+    border-radius: 3px;
+    background-color: white;
+    border-color: white;
     color: black;
+}
+
+#paginate:hover:not(.active) {
+    background-color: rgb(70, 70, 70);
+    border-color: rgb(70, 70, 70);
 }
 
 .problem {
@@ -64,18 +88,11 @@
 
 .right {
     margin-left: 5px;
-    background-color: whitesmoke;
-}
-
-.editor {
-    height: 400px;
 }
 
 .testcase {
-    color: black;
-    text-align: left;
-    padding: 15px;
-    
+    color: white;
+    background-color: rgb(20, 20, 20);
 }
 
 .quest-title {
@@ -83,23 +100,51 @@
     margin-bottom: 20px;
 }
 
-.content {
+.quest-content {
     font-size: 16px;
     white-space: pre-wrap;
 }
 
-.test-title {
+#testcase-title {
+    background-color: rgb(34, 34, 34);
+    height: 70px;
+    align-items: center;
+    padding: 15px;
+}
+
+.testname {
     font-size: 18px;
-    margin-bottom: 10px;
+    font-weight: 500;
+    float: left;
+    margin-top: 6px;
+}
+
+#btn-run {
+    float: right;
 }
 
 #testcase-tabs {
     text-align: left;
+    padding: 15px;
 }
 
 #test-content {
-    padding-left: 20px;
     line-height: 1em;
+    height: 100%;
     overflow-y: scroll;
     font-size: 14px;
+    padding-left: 5%;
+}
+
+.field {
+    font-size: 16px;
+    font-weight: 400;
+    color: aquamarine;
+    padding: 10px;
+}
+
+.content {
+    font-size: 16px;
+    white-space: pre-wrap;
+    padding: 10px;
 }

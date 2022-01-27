@@ -6,7 +6,7 @@ import PaginationBasic from './components/nav/Pagination';
 
 import './App.css';
 import './styles/styles.css';
-import { Navbar, Container } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 
 function App() {
   const [questions, setQuestion] = useState([]);
@@ -17,13 +17,13 @@ function App() {
   const currentQuestion = questions.slice(currentPage - 1, currentPage);
 
   const handleNextPage = () => {
-    if (currentPage + 1 > totalQuests) setCurrentPage(totalQuests);
-    else setCurrentPage(currentPage + 1);
+    let next = (currentPage === totalQuests)? currentPage: currentPage + 1;
+    setCurrentPage(next);
   }
 
   const handlePrevPage = () => {
-    if (currentPage === 1) setCurrentPage(1);
-    else setCurrentPage(currentPage - 1);
+    let prev = (currentPage > 0)? (currentPage - 1) : 0;
+    setCurrentPage(prev);
   }
 
   useEffect(() => {
@@ -39,20 +39,17 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Navbar variant="light" bg="light">
-        <Container id="nav">
-          <PaginationBasic 
-            question={questions}
-            paginate={page => setCurrentPage(page)}
-            nextPage={handleNextPage}
-            prevPage={handlePrevPage}
-            firstPage={() => setCurrentPage(1)}
-            lastPage={() => setCurrentPage(questions.length)}
-          />
-        </Container>
+    <div className="container">
+      <Navbar bg="dark" className="justify-content-center nav" fixed="top">
+        <PaginationBasic 
+          question={questions}
+          current={currentPage}
+          paginate={page => setCurrentPage(page)}
+          nextpage={handleNextPage}
+          prevpage={handlePrevPage}
+        />
       </Navbar>
-      <Container>
+      <div className="container">
         <SplitPane
           split='vertical'
           defaultSize='50%'
@@ -62,7 +59,7 @@ function App() {
             <Problem question={currentQuestion}/>
             <Editor question={currentQuestion} />
           </SplitPane>
-      </Container>
+      </div>
     </div>
   );
 };

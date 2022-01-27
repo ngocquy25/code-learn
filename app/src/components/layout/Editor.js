@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AceEditor from "react-ace";
+import SplitPane from 'react-split-pane';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import { Container, Row, Col, Tab, Nav, Button } from "react-bootstrap";
@@ -7,7 +8,7 @@ import { Container, Row, Col, Tab, Nav, Button } from "react-bootstrap";
 import '../../styles/styles.css';
 
 import "ace-builds/src-noconflict/mode-python";
-import "ace-builds/src-noconflict/theme-xcode";
+import "ace-builds/src-noconflict/theme-terminal";
 
 export default function Editor({ question }){
 
@@ -29,7 +30,6 @@ export default function Editor({ question }){
     const handleClick = async () => {
         setCurrentId(question[0].question_id);
         setCode(codedata);
-        // currentId = question[0].question_id;
 
         let content = JSON.stringify({
             questionID: question[0].question_id,
@@ -49,7 +49,6 @@ export default function Editor({ question }){
             });
 
             const data = await res.json();
-            // setTestcase(data);
             console.log("return:", data);
             setOutput1(data[0].actualOutput);
             setMessage1(data[0].Message);
@@ -64,11 +63,16 @@ export default function Editor({ question }){
 
     return(
         <div className="right">
-            <div className="editor">
+            <SplitPane
+                split='horizontal'
+                defaultSize='50%'
+                minSize={400}
+                maxSize={window.innerHeight-70}
+            >
                 <AceEditor
                     placeholder="Enter your code here"
                     mode="python"
-                    theme="xcode"
+                    theme="terminal"
                     name="code-editer"
                     onChange={onChange}
                     fontSize={14}
@@ -78,95 +82,99 @@ export default function Editor({ question }){
                     editorProps={{ $blockScrolling: false }}
                     style={{width: '100%', height: '100%'}}
                     value={code}
-                    setOptions={{
-                        // enableBasicAutocompletion: true,
-                        // enableLiveAutocompletion: true,
-                        // enableSnippets: true,
-                        showLineNumbers: true,
-                        tabSize: 4,
-                    }}
                 />
-            </div>
-            <div className="testcase">
-                {question.map(quest => (
-                <div key={quest.question_id}>
-                <Container>
-                    <Row>
-                        <Col>
-                            <div className="test-title">TEST CASE</div>
-                        </Col>
-                        <Col style={{textAlign: 'right'}}>
-                            <Button variant="primary" type="submit"
-                                onClick={handleClick}>Run code</Button>
-                        </Col>
-                    </Row>
-                </Container>
                 
-                <Tab.Container id="testcase-tabs" defaultActiveKey="first">
-                    <Row>
-                        <Col sm={4}>
-                            <Nav variant="pills" className="flex-column">
-                                <Nav.Item>
-                                    <Nav.Link eventKey="first">
-                                        Testcase 1
-                                    </Nav.Link>
-                                </Nav.Item>
-                                <Nav.Item>
-                                    <Nav.Link eventKey="second">
-                                        Testcase 2
-                                    </Nav.Link>
-                                </Nav.Item>
-                            </Nav>
-                        </Col>
-                        <Col sm={8} id="test-content">
-                            <Tab.Content>
-                                <Tab.Pane eventKey="first" >
-                                    <p><b>Input:</b></p>
-                                    <p className="content">
-                                        {quest.testcase_input_1.split('\\n').join('\n')}
-                                    </p>
-                                    <p><b>Expected Output:</b></p>
-                                    <p className="content">
-                                        {quest.testcase_output_1.split('\\n').join('\n')}
-                                    </p>
-                                    <p><b>Actual Output:</b></p>
-                                    <p className="content">
-                                        { currentId === quest.question_id?
-                                        output1.split('\\n').join('\n'): ''}
-                                    </p>
-                                    <p><b>Message:</b></p>
-                                    <p className="content">
-                                        { currentId === quest.question_id?
-                                        message1.split('\\n').join('\n'): ''}
-                                    </p>
-                                </Tab.Pane>
-                                <Tab.Pane eventKey="second">
-                                    <p><b>Input:</b></p>
-                                    <p className="content">
-                                        {quest.testcase_input_2.split('\\n').join('\n')}
-                                    </p>
-                                    <p><b>Expected Output:</b></p>
-                                    <p className="content">
-                                        {quest.testcase_output_2.split('\\n').join('\n')}
-                                    </p>
-                                    <p><b>Actual Output:</b></p>
-                                    <p className="content">
-                                        { currentId === quest.question_id?
-                                        output2.split('\\n').join('\n'): ''}
-                                    </p>
-                                    <p><b>Message:</b></p>
-                                    <p className="content">
-                                        { currentId === quest.question_id?
-                                        message2.split('\\n').join('\n'): ''}
-                                    </p>
-                                </Tab.Pane>
-                            </Tab.Content>
-                        </Col>
-                    </Row>
-                </Tab.Container>
+                <div className="testcase">
+                    {question.map(quest => (
+                    <div key={quest.question_id}>
+                    <Container id="testcase-title">
+                        <div className="testname">TEST CASE</div>
+                        <Button id="btn-run" variant="primary" type="submit"
+                            onClick={handleClick}>Run code</Button>
+                    </Container>
+                    
+                    <Tab.Container id="testcase-tabs" defaultActiveKey="first">
+                        <Row style={{height: 400}}>
+                            <Col sm={3}>
+                                <Nav variant="pills" className="flex-column">
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="first">
+                                            Testcase 1
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="second">
+                                            Testcase 2
+                                        </Nav.Link>
+                                    </Nav.Item>
+                                </Nav>
+                            </Col>
+                            <Col sm={8} id="test-content">
+                                <Tab.Content>
+                                    <Tab.Pane eventKey="first" >
+                                        <Row>
+                                            <Col className="field" sm={5}>Input:</Col>
+                                            <Col className="content" sm={7}>
+                                                {quest.testcase_input_1.split('\\n').join('\n')}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Expected Output:</Col>
+                                            <Col className="content" sm={7}>
+                                                {quest.testcase_output_1.split('\\n').join('\n')}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Actual Output:</Col>
+                                            <Col className="content" sm={7}>
+                                                { currentId === quest.question_id?
+                                                output1.split('\\n').join('\n'): ''}    
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Message:</Col>
+                                            <Col className="content" sm={7}>
+                                                { currentId === quest.question_id?
+                                                message1.split('\\n').join('\n'): ''}
+                                            </Col>
+                                        </Row>
+                                    </Tab.Pane>
+                                    <Tab.Pane eventKey="second">
+                                        <Row>
+                                            <Col className="field" sm={5}>Input:</Col>
+                                            <Col className="content" sm={7}>
+                                                {quest.testcase_input_2.split('\\n').join('\n')}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Expected Output:</Col>
+                                            <Col className="content" sm={7}>
+                                                {quest.testcase_output_2.split('\\n').join('\n')}
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Actual Output:</Col>
+                                            <Col className="content" sm={7}>
+                                                { currentId === quest.question_id?
+                                                output2.split('\\n').join('\n'): ''}    
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col className="field" sm={5}>Message:</Col>
+                                            <Col className="content" sm={7}>
+                                                { currentId === quest.question_id?
+                                                message2.split('\\n').join('\n'): ''}
+                                            </Col>
+                                        </Row>
+                                    </Tab.Pane>
+                                </Tab.Content>
+                            </Col>
+                        </Row>
+                    </Tab.Container>
+                    </div>
+                    ))}
                 </div>
-                ))}
-            </div>
+            </SplitPane>
         </div>
     );
 };
