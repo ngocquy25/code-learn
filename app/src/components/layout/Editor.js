@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AceEditor from "react-ace";
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Container, Row, Col, Tab, Nav, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Tab, Nav, Button } from "react-bootstrap";
 
 import '../../styles/styles.css';
 
@@ -11,46 +11,50 @@ import "ace-builds/src-noconflict/theme-xcode";
 
 export default function Editor({ question }){
 
-    let code;
+    let codedata = "";
 
+    const [code, setCode] = useState('');
     const [currentId, setCurrentId] = useState(0);
 
     const onChange = value => {
-        console.log(value);
-        code = value;
+        // console.log(value);
+        codedata = value;
     }
 
-    const [testcase, setTestcase] = useState([{
-        "actualOutput": "",
-        "Message": ""
-    },{
-        "actualOutput": "",
-        "Message": ""
-    }]);
+    const [output1, setOutput1] = useState('');
+    const [message1, setMessage1] = useState('');
+    const [output2, setOutput2] = useState('');
+    const [message2, setMessage2] = useState('');
 
     const handleClick = async () => {
-        try {
-            setCurrentId(question[0].question_id);
-            console.log(JSON.stringify({
-                questionID: currentId,
-                codeData: code
-            }))
+        setCurrentId(question[0].question_id);
+        setCode(codedata);
+        // currentId = question[0].question_id;
 
+        let content = JSON.stringify({
+            questionID: question[0].question_id,
+            codeData: codedata
+        })
+
+        console.log("post:",content)
+
+        try {
             const res = await fetch('https://codelearnapi.herokuapp.com/runcode', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    questionID: currentId,
-                    codeData: code
-                })
+                body: content
             });
 
             const data = await res.json();
-            setTestcase(data);
-            console.log(testcase);
+            // setTestcase(data);
+            console.log("return:", data);
+            setOutput1(data[0].actualOutput);
+            setMessage1(data[0].Message);
+            setOutput2(data[1].actualOutput);
+            setMessage2(data[1].Message);
         }
         catch (e) {
             console.log(e);
@@ -71,13 +75,13 @@ export default function Editor({ question }){
                     showPrintMargin={true}
                     showGutter={true}
                     highlightActiveLine={true}
-                    editorProps={{ $blockScrolling: true }}
+                    editorProps={{ $blockScrolling: false }}
                     style={{width: '100%', height: '100%'}}
                     value={code}
                     setOptions={{
-                        enableBasicAutocompletion: true,
-                        enableLiveAutocompletion: true,
-                        enableSnippets: true,
+                        // enableBasicAutocompletion: true,
+                        // enableLiveAutocompletion: true,
+                        // enableSnippets: true,
                         showLineNumbers: true,
                         tabSize: 4,
                     }}
@@ -128,12 +132,12 @@ export default function Editor({ question }){
                                     <p><b>Actual Output:</b></p>
                                     <p className="content">
                                         { currentId === quest.question_id?
-                                        testcase[0].actualOutput.split('\\n').join('\n'): ''}
+                                        output1.split('\\n').join('\n'): ''}
                                     </p>
                                     <p><b>Message:</b></p>
                                     <p className="content">
                                         { currentId === quest.question_id?
-                                        testcase[0].Message.split('\\n').join('\n'): ''}
+                                        message1.split('\\n').join('\n'): ''}
                                     </p>
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="second">
@@ -147,11 +151,13 @@ export default function Editor({ question }){
                                     </p>
                                     <p><b>Actual Output:</b></p>
                                     <p className="content">
-                                        {testcase[1].actualOutput.split('\\n').join('\n')}
+                                        { currentId === quest.question_id?
+                                        output2.split('\\n').join('\n'): ''}
                                     </p>
                                     <p><b>Message:</b></p>
                                     <p className="content">
-                                        {testcase[1].Message.split('\\n').join('\n')}
+                                        { currentId === quest.question_id?
+                                        message2.split('\\n').join('\n'): ''}
                                     </p>
                                 </Tab.Pane>
                             </Tab.Content>

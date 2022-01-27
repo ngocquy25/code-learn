@@ -88,7 +88,7 @@ app.post("/runcode", async (req, res) => {
                 res.status(500).send(error);
             })
             actualOutput = actualOutput.slice(0, -1)
-            if (actualOutput === expectedOutput[i]) actualMessage = "Right answer"
+            if (actualOutput === expectedOutput[i].split('\\n').join('\n')) actualMessage = "Right answer"
             else if (actualMessage === "") actualMessage = "Wrong answer"
             let outputSmall = await JSON.stringify({ 
                 "id":  i + 1,

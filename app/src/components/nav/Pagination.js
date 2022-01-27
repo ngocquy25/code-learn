@@ -4,29 +4,27 @@ import { Pagination } from "react-bootstrap";
 import '../../styles/styles.css';
 
 
-function PaginationBasic({ totalQuestion, paginate, nextPage, prevPage, firstPage, lastPage }) {
+function PaginationBasic(props) {
     
     const pageNumbers = [];
-    for (let i = 1; i <= totalQuestion; i++) pageNumbers.push(i);
+    for (let i = 0; i < props.question.length; i++) pageNumbers.push(i+1);
 
 
     return (
-        <div className="paginate">
-            <Pagination size='sm' className="d-flex justify-content-center">
-                <Pagination.First onClick={() => firstPage()}/>
-                <Pagination.Prev onClick={() => prevPage()}/>
-                {pageNumbers.map(number => (
-                    <Pagination.Item 
-                    key={number}
-                    onClick={() => paginate(number)}
-                    >
-                        {number}
-                    </Pagination.Item>
-                ))}
-                <Pagination.Next onClick={() => nextPage()}/>
-                <Pagination.Last onClick={() => lastPage()}/>
-            </Pagination>
-        </div>
+        <Pagination size='sm'>
+            <Pagination.First onClick={() => props.firstPage()}/>
+            <Pagination.Prev onClick={() => props.prevPage()}/>
+            {pageNumbers.map(number => (
+                <Pagination.Item 
+                key={number}
+                onClick={() => props.paginate(number)}
+                active={false}>
+                    {props.question[number-1].question_id}
+                </Pagination.Item>
+            ))}
+            <Pagination.Next onClick={() => props.nextPage()}/>
+            <Pagination.Last onClick={() => props.lastPage()}/>
+        </Pagination>
     );
 };
 
