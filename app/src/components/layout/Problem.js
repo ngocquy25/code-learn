@@ -7,7 +7,7 @@ function Problem({ question }){
             {question.map(quest => (
                 <div key={quest.question_id}>
                     <h1 className="quest-title">Bài toán {quest.question_id}</h1>
-                    <p className="content">{quest.description.split('\\n').join('\n')}</p>
+                    <p className="content" >{quest.description.split('\\n').join('\n')}</p>
                 </div>
             ))}
         </div>

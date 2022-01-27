@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import SplitPane from 'react-split-pane';
 import Editor from './components/layout/Editor';
 import Problem from './components/layout/Problem';
-import Testcase from './components/layout/Testcase';
 import PaginationBasic from './components/nav/Pagination';
 
 import './App.css';
@@ -63,10 +62,7 @@ function App() {
       maxSize={900}
       >
         <Problem question={currentQuestion}/>
-        <div className="right">
-          <Editor code={code} onChange={changeCode}/>
-          <Testcase question={currentQuestion} code={code}/>
-        </div>
+        <Editor question={currentQuestion} />
       </SplitPane>
     </div>
   );

@@ -49,8 +49,6 @@
 }
 
 .problem {
-    width: 100%;
-    height: 100%;
     text-align: left;
     padding: 50px;
     background-color: white;
@@ -62,17 +60,15 @@
     width: 100%;
     height: 100%;
     margin-left: 5px;
+    background-color: whitesmoke;
 }
 
 .editor {
     width: 100%;
-    height: 55%;
+    height: 50%;
 }
 
 .testcase {
-    width: 100%;
-    height: 100%;
-    background-color: whitesmoke;
     color: black;
     text-align: left;
     padding: 15px;
@@ -85,6 +81,7 @@
 
 .content {
     font-size: 16px;
+    white-space: pre-wrap;
 }
 
 .test-title {
