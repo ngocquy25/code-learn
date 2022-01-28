@@ -13,7 +13,7 @@ function PaginationBasic({ question, current, paginate, nextpage, prevpage}) {
 
 
     return (
-        <Pagination size='sm'>
+        <Pagination size='sm' className="page">
             <Pagination.First id="paginate" onClick={() => paginate(1)}/>
             <Pagination.Prev id="paginate" onClick={() => prevpage()}/>
             {pageNumbers.map(number => (

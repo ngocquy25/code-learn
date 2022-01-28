@@ -48,13 +48,8 @@
     border-color: transparent;
 }
 
-.container {
-    
-}
-
-.nav {
+.page {
     padding-top: 10px;
-    padding-bottom: 0;
 }
 
 #paginate {
@@ -92,6 +87,7 @@
 
 .testcase {
     color: white;
+    height: 100%;
     background-color: rgb(20, 20, 20);
 }
 
@@ -123,17 +119,11 @@
     float: right;
 }
 
-#testcase-tabs {
-    text-align: left;
-    padding: 15px;
-}
-
 #test-content {
-    line-height: 1em;
+    line-height: 1.5em;
     height: 100%;
     overflow-y: scroll;
     font-size: 14px;
-    padding-left: 5%;
 }
 
 .field {

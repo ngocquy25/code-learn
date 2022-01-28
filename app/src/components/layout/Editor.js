@@ -93,8 +93,8 @@ export default function Editor({ question }){
                             onClick={handleClick}>Run code</Button>
                     </Container>
                     
-                    <Tab.Container id="testcase-tabs" defaultActiveKey="first">
-                        <Row style={{height: 400}}>
+                    <Tab.Container defaultActiveKey="first">
+                        <Row style={{paddingTop: '20px'}}>
                             <Col sm={3}>
                                 <Nav variant="pills" className="flex-column">
                                     <Nav.Item>
@@ -109,31 +109,31 @@ export default function Editor({ question }){
                                     </Nav.Item>
                                 </Nav>
                             </Col>
-                            <Col sm={8} id="test-content">
+                            <Col id="test-content">
                                 <Tab.Content>
-                                    <Tab.Pane eventKey="first" >
+                                    <Tab.Pane eventKey="first">
                                         <Row>
                                             <Col className="field" sm={5}>Input:</Col>
-                                            <Col className="content" sm={7}>
+                                            <Col className="content" sm={6}>
                                                 {quest.testcase_input_1.split('\\n').join('\n')}
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col className="field" sm={5}>Expected Output:</Col>
-                                            <Col className="content" sm={7}>
+                                            <Col className="content" sm={6}>
                                                 {quest.testcase_output_1.split('\\n').join('\n')}
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col className="field" sm={5}>Actual Output:</Col>
-                                            <Col className="content" sm={7}>
+                                            <Col className="content" sm={6}>
                                                 { currentId === quest.question_id?
                                                 output1.split('\\n').join('\n'): ''}    
                                             </Col>
                                         </Row>
                                         <Row>
                                             <Col className="field" sm={5}>Message:</Col>
-                                            <Col className="content" sm={7}>
+                                            <Col className="content" sm={6}>
                                                 { currentId === quest.question_id?
                                                 message1.split('\\n').join('\n'): ''}
                                             </Col>

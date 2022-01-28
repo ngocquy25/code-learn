@@ -3,10 +3,10 @@ import SplitPane from 'react-split-pane';
 import Editor from './components/layout/Editor';
 import Problem from './components/layout/Problem';
 import PaginationBasic from './components/nav/Pagination';
+import { Navbar, Container } from 'react-bootstrap';
 
 import './App.css';
 import './styles/styles.css';
-import { Navbar } from 'react-bootstrap';
 
 function App() {
   const [questions, setQuestion] = useState([]);
@@ -39,8 +39,10 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
-      <Navbar bg="dark" className="justify-content-center nav" fixed="top">
+    <div className="App">
+      <Navbar bg="dark" className="shadow">
+        <Container>
+        <Navbar.Brand style={{color: 'white'}}>Code learn</Navbar.Brand>
         <PaginationBasic 
           question={questions}
           current={currentPage}
@@ -48,6 +50,7 @@ function App() {
           nextpage={handleNextPage}
           prevpage={handlePrevPage}
         />
+        </Container>
       </Navbar>
       <div className="container">
         <SplitPane
