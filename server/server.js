@@ -2,19 +2,9 @@ const express = require('express')
 const app = express()
 
 //set up
-
-const Pool = require('pg').Pool
-const pool = new Pool({
-  user: 'postgres',         //can modify 
-  host: 'localhost',
-  database: 'code-learn-db',
-  password: 'postgres',     //can modify
-  port: 5432,
-});
-
 app.use(express.json())
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000/');
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Access-Control-Allow-Headers');
   next();
@@ -40,7 +30,6 @@ app.get("/:id", async (req, res) => {
         res.status(500).send(error);
     }
 })
-  
 
 // run code
 const axios = require('axios')
@@ -72,10 +61,12 @@ app.post("/runcode", async (req, res) => {
         for (let i = 0; i < 2; i++) {
             let codeNewData = codeData
             for (let j = 0; j < numParam; j++) {
-                if (codeNewData.includes("input()")) codeNewData = codeNewData.replace("input()", input[i][j]);
+                if (codeNewData.includes("input()")) {
+                    if (typeof input[i][j] !== 'string') codeNewData = codeNewData.replace("input()", input[i][j]);
+                    else codeNewData = codeNewData.replace("input()", '\"' + input[i][j] + '\"')
+                }
                 else break;
             }
-
             // call api python compiler
             let postData = JSON.stringify({ "code": codeNewData});
             postData = JSON.parse(postData)
@@ -88,39 +79,29 @@ app.post("/runcode", async (req, res) => {
                 res.status(500).send(error);
             })
             actualOutput = actualOutput.slice(0, -1)
-            if (actualOutput === expectedOutput[i].split('\\n').join('\n')) actualMessage = "Right answer"
+            // if (actualOutput === expectedOutput[i]) actualMessage = "Right answer"
+            if (actualOutput === expectedOutput[i].split('\\n').join('\n')) actualMessage = "Right answer"  
             else if (actualMessage === "") actualMessage = "Wrong answer"
+            // save
             let outputSmall = await JSON.stringify({ 
                 "id":  i + 1,
                 "input": originInput[i],
                 "actualOutput": actualOutput,
                 "expectedOutput": expectedOutput[i],
                 "Message": actualMessage,
+                "LeeKimMinSoCool": codeNewData,
             });
+
             outputSmall = JSON.parse(outputSmall)
             output.push(outputSmall)
         }
 
         res.status(200).send(output);
-        // var postData = JSON.stringify({ "code": `${[codeNewData]}` });
-        // postData = JSON.parse(postData)
-
-        // axios.post('https://pythoncompiler9.herokuapp.com/python/', postData)
-        // .then(response => {
-        //     res.status(response.status).send(response.data);
-        // })
-        // .catch(error => {
-        //     res.status(500).send(error);
-        // })
     } catch (err) {
         console.log(err);
     }
 })
 
-/*{
-"questionID" : 31,
-"codeData": "n = int(input())\nanswer = 0\nfor i in range(1, n + 1):\n\tanswer += i\nprint(answer)"
-}*/
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
