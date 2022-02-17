@@ -40,18 +40,6 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar bg="dark" className="shadow">
-        <Container>
-        <Navbar.Brand style={{color: 'white'}}>Code learn</Navbar.Brand>
-        <PaginationBasic 
-          question={questions}
-          current={currentPage}
-          paginate={page => setCurrentPage(page)}
-          nextpage={handleNextPage}
-          prevpage={handlePrevPage}
-        />
-        </Container>
-      </Navbar>
       <div className="container">
         <SplitPane
           split='vertical'
@@ -59,7 +47,21 @@ function App() {
           minSize={400}
           maxSize={900}
           >
-            <Problem question={currentQuestion}/>
+            <div className="flex-container">
+              <Problem className="flex-item" question={currentQuestion}/>
+              <Navbar bg="dark" className="flex-item shadow">
+                <Container>
+                <Navbar.Brand style={{color: 'white'}}>Code learn by WERP</Navbar.Brand>
+                <PaginationBasic 
+                  question={questions}
+                  current={currentPage}
+                  paginate={page => setCurrentPage(page)}
+                  nextpage={handleNextPage}
+                  prevpage={handlePrevPage}
+                />
+                </Container>
+              </Navbar>
+            </div>
             <Editor question={currentQuestion} />
           </SplitPane>
       </div>
