@@ -29,4 +29,8 @@ module.exports = {
 };
 
 // Test:
-// #include <iostream>\n#include <stdio.h>\n\nusing namespace std;\n\nint main() {\nint a = 5, b=2;\nfor (int i = 0; i<a; i++){\ncout << b;\n}\nreturn 0;\n}
+// 
+// {
+//   "language": "cpp",
+//   "code": "#include <iostream>\n#include <stdio.h>\n\nusing namespace std;\n\nint main() {\nint a = 5, b=2;\nfor (int i = 0; i<a; i++){\ncout << b;\n}\nreturn 0;\n}"
+// }

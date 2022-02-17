@@ -18,4 +18,8 @@ module.exports = {
 };
 
 // Test:
-// class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello, World!\"); \n\t}\n}
+// 
+// {
+//   "language": "java",
+//   "code": "class HelloWorld {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.println(\"Hello, World!\"); \n\t}\n}"
+// }

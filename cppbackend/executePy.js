@@ -18,4 +18,8 @@ module.exports = {
 };
 
 // Test:
-// def sum(a,b):\n\treturn a+b\nprint(sum(2,3))
+// 
+// {
+//   "language": "py",
+//   "code": "def sum(a,b):\n\treturn a+b\nprint(sum(2,3))"
+// }
