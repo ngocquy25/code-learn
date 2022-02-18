@@ -138,3 +138,9 @@
     white-space: pre-wrap;
     padding: 10px;
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

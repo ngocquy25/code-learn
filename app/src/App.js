@@ -4,9 +4,8 @@ import Editor from './components/layout/Editor';
 import Problem from './components/layout/Problem';
 import PaginationBasic from './components/nav/Pagination';
 import { Navbar, Container } from 'react-bootstrap';
-import styled, { ThemeProvider } from "styled-components";
-import { GlobalStyles } from './theme/GlobalStyles';
-import {useTheme} from './theme/useTheme';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from "./styles/themes.js";
 
 //import './App.css';
 //import './styles/styles.css';
@@ -42,14 +41,18 @@ function App() {
   }, []);
 
   
+  const [theme, setTheme] = useState("light");
 
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+    console.log(theme);
+  };
 
   return (
     <div className="App">
       <div className="container">
         {
-          themeLoaded && <ThemeProvider theme={ selectedTheme }>
-            <GlobalStyles/>
+          <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
             <SplitPane
               split='vertical'
               defaultSize='50%'
@@ -58,7 +61,7 @@ function App() {
               >
                 <div className="flex-container">
                   <Problem className="flex-item" question={currentQuestion}/>
-                  {/* <button onClick={ () => themeSwitcher() }>OK</button> */}
+                  <button onClick={ () => themeToggler() }>OK</button>
                   <Navbar bg="dark" className="flex-item shadow">
                     <Container>
                     <Navbar.Brand style={{color: 'white'}}>Code learn by WERP</Navbar.Brand>
