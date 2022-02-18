@@ -182,3 +182,9 @@
     float: right;
     margin: 15px;
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}

@@ -26,7 +26,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-### `npm run build` fails to minify
+### `npm run build`
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
@@ -41,12 +41,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### POST /runcode
 
-{
-"questionID" : 31,
-"codeData": "n = int(input())\nansnwer = 0\nfor i in range(1, n + 1):\n\tanswer += i\nprint(answer)"
+{<br />
+    "questionID" : 31,<br />
+    "codeData": "n = int(input())\nansnwer = 0\nfor i in range(1, n + 1):\n\tanswer += i\nprint(answer)"<br />
 }
 
-#### _result_ 
+#### _Result_ 
 
 [<br />
     {<br />
