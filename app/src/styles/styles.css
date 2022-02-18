@@ -81,16 +81,6 @@
     overflow-y: scroll;
 }
 
-.right {
-    margin-left: 5px;
-}
-
-.testcase {
-    color: white;
-    height: 100%;
-    background-color: rgb(20, 20, 20);
-}
-
 .quest-title {
     font-size: 30px;
     margin-bottom: 20px;
@@ -101,22 +91,65 @@
     white-space: pre-wrap;
 }
 
-#testcase-title {
-    background-color: rgb(34, 34, 34);
-    height: 70px;
-    align-items: center;
-    padding: 15px;
+.right {
+    margin-left: 5px;
+    background-color: rgb(20, 20, 20);
+    height: 100%;
 }
 
-.testname {
+.right-nav {
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+
+.language {
+    float: right;
+    width: 180px;
+    background-color: transparent;
+    color: white;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.editor {
+    
+}
+
+.testcase {
+    color: white;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.accordion-button {
+    color: white;
+    background-color: rgb(34, 34, 34);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+    border-radius: 0px !important;
+}
+
+.accordion-button:not(.collapsed) {
+    color: white;
+    background-color: rgb(34, 34, 34);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+    border-radius: 0px !important;
+}
+
+.accordion-button::after {
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+}
+
+.accordion-button:not(.collapsed)::after {
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+}
+
+.accordion-body {
+    background-color: rgb(34, 34, 34);
+}
+
+.testcase-title {
     font-size: 18px;
     font-weight: 500;
-    float: left;
     margin-top: 6px;
-}
-
-#btn-run {
-    float: right;
 }
 
 #test-content {
@@ -137,4 +170,15 @@
     font-size: 16px;
     white-space: pre-wrap;
     padding: 10px;
+}
+
+.footer {
+    background-color: rgb(20, 20, 20);
+    height: 100%;
+    width: 100%;
+}
+
+#btn-submit {
+    float: right;
+    margin: 15px;
 }

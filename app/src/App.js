@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar bg="dark" className="shadow">
+      {/* <Navbar bg="dark" className="shadow">
         <Container>
         <Navbar.Brand style={{color: 'white'}}>Code learn</Navbar.Brand>
         <PaginationBasic 
@@ -51,7 +51,7 @@ function App() {
           prevpage={handlePrevPage}
         />
         </Container>
-      </Navbar>
+      </Navbar> */}
       <div className="container">
         <SplitPane
           split='vertical'
