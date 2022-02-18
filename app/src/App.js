@@ -4,9 +4,12 @@ import Editor from './components/layout/Editor';
 import Problem from './components/layout/Problem';
 import PaginationBasic from './components/nav/Pagination';
 import { Navbar, Container } from 'react-bootstrap';
+import styled, { ThemeProvider } from "styled-components";
+import { GlobalStyles } from './theme/GlobalStyles';
+import {useTheme} from './theme/useTheme';
 
-import './App.css';
-import './styles/styles.css';
+//import './App.css';
+//import './styles/styles.css';
 
 function App() {
   const [questions, setQuestion] = useState([]);
@@ -38,32 +41,51 @@ function App() {
       )
   }, []);
 
+  // Get the selected theme, font list, etc.
+  const {theme, themeLoaded, setMode} = useTheme();
+  const [selectedTheme, setSelectedTheme] = useState(theme);
+
+  useEffect(() => {
+    setSelectedTheme(theme);
+  }, [themeLoaded]);
+
+  const themeSwitcher = () => {
+    console.log(selectedTheme);
+    setMode(selectedTheme);
+  };
+
   return (
     <div className="App">
       <div className="container">
-        <SplitPane
-          split='vertical'
-          defaultSize='50%'
-          minSize={400}
-          maxSize={900}
-          >
-            <div className="flex-container">
-              <Problem className="flex-item" question={currentQuestion}/>
-              <Navbar bg="dark" className="flex-item shadow">
-                <Container>
-                <Navbar.Brand style={{color: 'white'}}>Code learn by WERP</Navbar.Brand>
-                <PaginationBasic 
-                  question={questions}
-                  current={currentPage}
-                  paginate={page => setCurrentPage(page)}
-                  nextpage={handleNextPage}
-                  prevpage={handlePrevPage}
-                />
-                </Container>
-              </Navbar>
-            </div>
-            <Editor question={currentQuestion} />
-          </SplitPane>
+        {
+          themeLoaded && <ThemeProvider theme={ selectedTheme }>
+            <GlobalStyles/>
+            <SplitPane
+              split='vertical'
+              defaultSize='50%'
+              minSize={400}
+              maxSize={900}
+              >
+                <div className="flex-container">
+                  <Problem className="flex-item" question={currentQuestion}/>
+                  <button onClick={ () => themeSwitcher() }>OK</button>
+                  <Navbar bg="dark" className="flex-item shadow">
+                    <Container>
+                    <Navbar.Brand style={{color: 'white'}}>Code learn by WERP</Navbar.Brand>
+                    <PaginationBasic 
+                      question={questions}
+                      current={currentPage}
+                      paginate={page => setCurrentPage(page)}
+                      nextpage={handleNextPage}
+                      prevpage={handlePrevPage}
+                    />
+                    </Container>
+                  </Navbar>
+                </div>
+                <Editor question={currentQuestion} />
+              </SplitPane>
+          </ThemeProvider>
+        }
       </div>
     </div>
   );

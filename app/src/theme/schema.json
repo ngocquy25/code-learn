@@ -1,0 +1,13 @@
+{
+  "data" : {  
+    "light" : {
+      "name": "Light",
+      "id": "",
+      "class": {
+        "field": {
+          "color": "aquamarine"
+        }
+      }
+    }
+  }
+}
