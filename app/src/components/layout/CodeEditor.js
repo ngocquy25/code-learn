@@ -64,6 +64,7 @@ export default function CodeEditor({ question }){
             setMessage1(data[0].Message);
             setOutput2(data[1].actualOutput);
             setMessage2(data[1].Message);
+            // setOutput(data);
         }
         catch (e) {
             console.log(e);
