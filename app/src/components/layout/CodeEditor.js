@@ -1,37 +1,36 @@
-import React, { useState } from "react";
-import AceEditor from "react-ace";
+import React, { useRef, useState } from "react";
+import Editor from "@monaco-editor/react";
+import { Row, Col, Tab, Nav, Button, Navbar, Form, Accordion, ToggleButton } from "react-bootstrap";
+import { CgSun } from "react-icons/cg";
+import { HiMoon, HiRefresh } from "react-icons/hi";
+import { GrPowerReset } from "react-icons/gr";
 
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Tab, Nav, Button, Navbar, Form, Accordion } from "react-bootstrap";
-
 import '../../styles/styles.css';
 
-import "ace-builds/src-noconflict/mode-java";
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/mode-python";
+export default function CodeEditor({ question }){
 
-import "ace-builds/src-noconflict/theme-github";
-import "ace-builds/src-noconflict/theme-xcode";
-import "ace-builds/src-noconflict/theme-monokai";
-
-export default function Editor({ question }){
-
-    let codedata = "";
+    const langOptions = [
+        { value: 'javascript', label: 'Javascript (node v14.7.0)' },
+        { value: 'cpp', label: 'C++ (g++ 9.2.1)' },
+        { value: 'python', label: 'Python (3.9.1)' },
+        { value: 'java', label: 'Java (17.0.1)' }
+    ]
 
     const [code, setCode] = useState('');
     const [currentId, setCurrentId] = useState(0);
-    const [lang, setLang] = useState('javascript');
-    const [theme, setTheme] = useState('monokai');
+    const [lang, setLang] = useState(langOptions[0].value);
+    const [theme, setTheme] = useState('vs-dark');
 
-    // const langOptions = [
-    //     { value: 'javascript', label: 'Javascript (node v14.7.0)' },
-    //     { value: 'csharp', label: 'C++ (g++ 9.2.1)' },
-    //     { value: 'python', label: 'Python (3.9.1)' },
-    //     { value: 'java', label: 'Java (17.0.1)'}
-    //   ]
+    const changeTheme = () => {
+        if (theme === 'light') setTheme('vs-dark');
+        else setTheme('light');
+    }
 
-    const onChange = value => {
-        codedata = value;
+    const editorRef = useRef(null);
+
+    const handleEditorDidMount = (editor, monaco) => {
+        editorRef.current = editor;
     }
 
     const [output1, setOutput1] = useState('');
@@ -39,16 +38,15 @@ export default function Editor({ question }){
     const [output2, setOutput2] = useState('');
     const [message2, setMessage2] = useState('');
 
-    const handleClick = async () => {
+    const handleSubmit = async () => {
         setCurrentId(question[0].question_id);
-        setCode(codedata);
 
         let content = JSON.stringify({
             questionID: question[0].question_id,
-            codeData: codedata
+            codeData: code
         })
 
-        console.log("post:",content)
+        console.log("post:", content);
 
         try {
             const res = await fetch('https://codelearnapi.herokuapp.com/runcode', {
@@ -78,39 +76,42 @@ export default function Editor({ question }){
             <Navbar bg="dark" variant="dark" className="right-nav">
                 <Nav className="container-fluid">
                     <Nav.Item>
-                        {/* change theme here */}
-                        
+                        <ToggleButton onClick={changeTheme} className="icon-wrapper">
+                            {theme === "light" ? <CgSun className="icon"/> : <HiMoon className="icon"/>}
+                        </ToggleButton>
+                    </Nav.Item>
+                    <Nav.Item className="me-auto">
+                        <ToggleButton onClick={() => setCode('')} className="icon-wrapper">
+                            <HiRefresh className="icon" color="white"/>
+                        </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="ml-auto">
-                        <Form.Select className="language" onChange={(value) => setLang(value)}>
-                            <option value="javascript">Javascript (node v14.7.0)</option>
-                            <option value="csharp">C++ (g++ 9.2.1)</option>
-                            <option value="python">Python (3.9.1)</option>
-                            <option value="java">Java (17.0.1)</option>
+                        <Form.Select className="language" onChange={e => setLang(e.target.value)}>
+                            {langOptions.map(lang => (
+                                <option key={lang.value} value={lang.value}>{lang.label}</option>
+                            ))}
                         </Form.Select>
                     </Nav.Item>
                 </Nav>
             </Navbar>
 
-            <AceEditor
-                placeholder="Enter your code here"
-                mode={lang}
-                theme="monokai"
-                name="code-editer"
-                onChange={onChange}
-                fontSize={14}
-                showPrintMargin={true}
-                showGutter={true}
-                highlightActiveLine={true}
-                editorProps={{ $blockScrolling: false }}
-                style={{width: '100%', height: '400px'}}
+            <Editor
+                height="50%"
+                width="99%"
+                className="monaco-editor"
+                theme={theme}
+                defaultLanguage="javascript"
+                language={lang}
+                defaultValue="// Enter your code here"
                 value={code}
-            />    
+                onChange={(value) => setCode(value)}
+                onMount={handleEditorDidMount}
+            />
                
             <div className="testcase">
                 {question.map(quest => (
                 <div key={quest.question_id}>
-                    <Accordion defaultActiveKey="0" flush>
+                    <Accordion flush>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header className="testcase-title">TEST CASE</Accordion.Header>
                             <Accordion.Body>
@@ -197,7 +198,7 @@ export default function Editor({ question }){
                     </Accordion>
                     <div className="footer">
                         <Button id="btn-submit" variant="primary" type="submit"
-                            onClick={handleClick}>Run code</Button>                   
+                            onClick={handleSubmit}>Run code</Button>                   
                     </div>
                 </div>
                 ))}

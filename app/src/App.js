@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import SplitPane from 'react-split-pane';
-import Editor from './components/layout/Editor';
+import CodeEditor from './components/layout/CodeEditor';
 import Problem from './components/layout/Problem';
-import PaginationBasic from './components/nav/Pagination';
+import PaginationBasic from './components/layout/Pagination';
 import { Navbar, Container } from 'react-bootstrap';
-import { ThemeProvider } from 'styled-components';
+// import { ThemeProvider } from 'styled-components';
 // import { lightTheme, darkTheme } from "./styles/themes.js";
 
-//import './App.css';
-//import './styles/styles.css';
 
 function App() {
   const [questions, setQuestion] = useState([]);
@@ -41,12 +39,12 @@ function App() {
   }, []);
 
   
-  const [theme, setTheme] = useState("light");
+  // const [theme, setTheme] = useState("light");
 
-  const themeToggler = () => {
-    theme === "light" ? setTheme("dark") : setTheme("light");
-    console.log(theme);
-  };
+  // const themeToggler = () => {
+  //   theme === "light" ? setTheme("dark") : setTheme("light");
+  //   console.log(theme);
+  // };
 
   return (
     <div className="App">
@@ -57,14 +55,14 @@ function App() {
               split='vertical'
               defaultSize='50%'
               minSize={400}
-              maxSize={900}
+              maxSize={800}
               >
                 <div className="flex-container">
                   <Problem className="flex-item" question={currentQuestion}/>
                   {/* <button onClick={ () => themeToggler() }>OK</button> */}
                   <Navbar bg="dark" className="flex-item shadow">
                     <Container>
-                    <Navbar.Brand style={{color: 'white'}}>Code learn</Navbar.Brand>
+                    <Navbar.Brand id="nav-brand">Code learn</Navbar.Brand>
                     <PaginationBasic 
                       question={questions}
                       current={currentPage}
@@ -75,7 +73,7 @@ function App() {
                     </Container>
                   </Navbar>
                 </div>
-                <Editor question={currentQuestion} />
+                <CodeEditor question={currentQuestion} />
               </SplitPane>
           {/* </ThemeProvider>
         } */}

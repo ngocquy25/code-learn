@@ -91,10 +91,16 @@
     white-space: pre-wrap;
 }
 
+#nav-brand {
+    color: white;
+}
+
 .right {
     margin-left: 5px;
     background-color: rgb(20, 20, 20);
     height: 100%;
+    width: inherit;
+    overflow-y: scroll;
 }
 
 .right-nav {
@@ -108,10 +114,6 @@
     color: white;
     margin: 5px;
     font-size: 14px;
-}
-
-.editor {
-    
 }
 
 .testcase {
@@ -187,4 +189,22 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+.icon-wrapper {
+    margin-left: 20px;
+    background-color: transparent;
+    border: 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+.icon-wrapper:hover {
+    background-color: transparent;
+}
+
+.icon {
+    size: 20;
+    color: white;
+    background-color: transparent;
 }
