@@ -1,7 +1,7 @@
 import React from "react";
 import '../../styles/styles.css';
 
-function Problem({ question }){
+const Problem = ({ question }) => {
     return(
         <div className="problem">
             {question.map(quest => (

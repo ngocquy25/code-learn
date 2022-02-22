@@ -1,14 +1,14 @@
 import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
-import { Row, Col, Tab, Nav, Button, Navbar, Form, Accordion, ToggleButton } from "react-bootstrap";
+import { Nav, Button, Navbar, Form, ToggleButton } from "react-bootstrap";
 import { CgSun } from "react-icons/cg";
 import { HiMoon, HiRefresh } from "react-icons/hi";
-import { GrPowerReset } from "react-icons/gr";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/styles.css';
+import Testcase from "./Testcase";
 
-export default function CodeEditor({ question }){
+const CodeEditor = ({ question }) => {
 
     const langOptions = [
         { value: 'javascript', label: 'Javascript (node v14.7.0)' },
@@ -18,9 +18,10 @@ export default function CodeEditor({ question }){
     ]
 
     const [code, setCode] = useState('');
-    const [currentId, setCurrentId] = useState(0);
     const [lang, setLang] = useState(langOptions[0].value);
     const [theme, setTheme] = useState('vs-dark');
+    const [currentOutput, setCurrentOutput] = useState();
+    const [output, setOutput] = useState([]);
 
     const changeTheme = () => {
         if (theme === 'light') setTheme('vs-dark');
@@ -33,18 +34,13 @@ export default function CodeEditor({ question }){
         editorRef.current = editor;
     }
 
-    const [output1, setOutput1] = useState('');
-    const [message1, setMessage1] = useState('');
-    const [output2, setOutput2] = useState('');
-    const [message2, setMessage2] = useState('');
-
     const handleSubmit = async () => {
-        setCurrentId(question[0].question_id);
+        setCurrentOutput(question[0].question_id);
 
         let content = JSON.stringify({
             questionID: question[0].question_id,
-            codeData: code
-        })
+            codeData: editorRef.current.getValue()
+        });
 
         console.log("post:", content);
 
@@ -60,29 +56,25 @@ export default function CodeEditor({ question }){
 
             const data = await res.json();
             console.log("return:", data);
-            setOutput1(data[0].actualOutput);
-            setMessage1(data[0].Message);
-            setOutput2(data[1].actualOutput);
-            setMessage2(data[1].Message);
-            // setOutput(data);
+            setOutput(data);
         }
         catch (e) {
             console.log(e);
         }
     };
 
-
     return(
         <div className="right">
-            <Navbar bg="dark" variant="dark" className="right-nav">
+            <Navbar bg="dark" variant="dark" className="shadow-down" sticky="top">
                 <Nav className="container-fluid">
                     <Nav.Item>
-                        <ToggleButton onClick={changeTheme} className="icon-wrapper">
-                            {theme === "light" ? <CgSun className="icon"/> : <HiMoon className="icon"/>}
+                        <ToggleButton className="icon-wrapper" onClick={changeTheme} >
+                            {theme === "light" ? 
+                            <CgSun className="icon"/> : <HiMoon className="icon"/>}
                         </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="me-auto">
-                        <ToggleButton onClick={() => setCode('')} className="icon-wrapper">
+                        <ToggleButton className="icon-wrapper" onClick={() => setCode('')} >
                             <HiRefresh className="icon" color="white"/>
                         </ToggleButton>
                     </Nav.Item>
@@ -95,11 +87,10 @@ export default function CodeEditor({ question }){
                     </Nav.Item>
                 </Nav>
             </Navbar>
-
+            
             <Editor
-                height="50%"
-                width="99%"
-                className="monaco-editor"
+                className="monaco-ide"
+                width="100%"
                 theme={theme}
                 defaultLanguage="javascript"
                 language={lang}
@@ -107,103 +98,23 @@ export default function CodeEditor({ question }){
                 value={code}
                 onChange={(value) => setCode(value)}
                 onMount={handleEditorDidMount}
+                options={{
+                    fontSize: 14,
+                    tabSize: 4,
+                    minimap: {
+                        enabled: false
+                    }
+                }}
             />
                
-            <div className="testcase">
-                {question.map(quest => (
-                <div key={quest.question_id}>
-                    <Accordion flush>
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header className="testcase-title">TEST CASE</Accordion.Header>
-                            <Accordion.Body>
-                                <Tab.Container defaultActiveKey="first">
-                                    <Row>
-                                        <Col sm={3}>
-                                            <Nav variant="pills" className="flex-column">
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="first">
-                                                        Testcase 1
-                                                    </Nav.Link>
-                                                </Nav.Item>
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="second">
-                                                        Testcase 2
-                                                    </Nav.Link>
-                                                </Nav.Item>
-                                            </Nav>
-                                        </Col>
-                                        <Col id="test-content">
-                                            <Tab.Content>
-                                                <Tab.Pane eventKey="first">
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Input:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            {quest.testcase_input_1.split('\\n').join('\n')}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Expected Output:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            {quest.testcase_output_1.split('\\n').join('\n')}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Actual Output:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            { currentId === quest.question_id?
-                                                            output1.split('\\n').join('\n'): ''}    
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Message:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            { currentId === quest.question_id?
-                                                            message1.split('\\n').join('\n'): ''}
-                                                        </Col>
-                                                    </Row>
-                                                </Tab.Pane>
-                                                <Tab.Pane eventKey="second">
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Input:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            {quest.testcase_input_2.split('\\n').join('\n')}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Expected Output:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            {quest.testcase_output_2.split('\\n').join('\n')}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Actual Output:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            { currentId === quest.question_id?
-                                                            output2.split('\\n').join('\n'): ''}    
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Message:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            { currentId === quest.question_id?
-                                                            message2.split('\\n').join('\n'): ''}
-                                                        </Col>
-                                                    </Row>
-                                                </Tab.Pane>
-                                            </Tab.Content>
-                                        </Col>
-                                    </Row>
-                                </Tab.Container>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                    <div className="footer">
-                        <Button id="btn-submit" variant="primary" type="submit"
-                            onClick={handleSubmit}>Run code</Button>                   
-                    </div>
-                </div>
-                ))}
-            </div>
+            <Testcase question={question} current={currentOutput} output={output}/>
+
+            <Navbar bg="dark" variant="dark" className="footer shadow-up">
+                <Button className="btn-submit" variant="primary" type="submit"
+                    onClick={handleSubmit}>Run code</Button>  
+            </Navbar>
         </div>
     );
 };
+
+export default CodeEditor;

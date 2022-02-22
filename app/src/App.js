@@ -48,7 +48,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
+      <Container fluid>
         {/* {
           <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}> */}
             <SplitPane
@@ -60,16 +60,16 @@ function App() {
                 <div className="flex-container">
                   <Problem className="flex-item" question={currentQuestion}/>
                   {/* <button onClick={ () => themeToggler() }>OK</button> */}
-                  <Navbar bg="dark" className="flex-item shadow">
+                  <Navbar bg="dark" variant="dark" className="shadow-up">
                     <Container>
-                    <Navbar.Brand id="nav-brand">Code learn</Navbar.Brand>
-                    <PaginationBasic 
-                      question={questions}
-                      current={currentPage}
-                      paginate={page => setCurrentPage(page)}
-                      nextpage={handleNextPage}
-                      prevpage={handlePrevPage}
-                    />
+                      <Navbar.Brand href="/">Code learn by Quy Minh</Navbar.Brand>
+                      <PaginationBasic 
+                        question={questions}
+                        current={currentPage}
+                        paginate={page => setCurrentPage(page)}
+                        nextpage={handleNextPage}
+                        prevpage={handlePrevPage}
+                      />
                     </Container>
                   </Navbar>
                 </div>
@@ -77,7 +77,7 @@ function App() {
               </SplitPane>
           {/* </ThemeProvider>
         } */}
-      </div>
+      </Container>
     </div>
   );
 };
