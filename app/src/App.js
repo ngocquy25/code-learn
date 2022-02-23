@@ -22,7 +22,7 @@ function App() {
   }
 
   const handlePrevPage = () => {
-    let prev = (currentPage > 0)? (currentPage - 1) : 0;
+    let prev = (currentPage > 1)? (currentPage - 1) : 1;
     setCurrentPage(prev);
   }
 
@@ -74,6 +74,7 @@ function App() {
                   </Navbar>
                 </div>
                 <CodeEditor question={currentQuestion} />
+                <div>hello</div>
               </SplitPane>
           {/* </ThemeProvider>
         } */}

@@ -1,14 +1,11 @@
 import React from "react";
-import { Row, Col, Tab, Nav, Accordion, Card, Button } from "react-bootstrap";
+import { Row, Col, Tab, Nav, Accordion } from "react-bootstrap";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/styles.css';
 
 
 const Testcase = ({question, current, output }) => {
-
-    console.log(output);
-    console.log(current);
 
     const getText = text => {
         return text.split('\\n').join('\n');

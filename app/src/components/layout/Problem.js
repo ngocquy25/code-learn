@@ -2,12 +2,17 @@ import React from "react";
 import '../../styles/styles.css';
 
 const Problem = ({ question }) => {
+    console.log(question)
     return(
         <div className="problem">
-            {question.map(quest => (
-                <div key={quest.question_id}>
-                    <h1 className="quest-title">Bài toán {quest.question_id}</h1>
-                    <p className="quest-content" >{quest.description.split('\\n').join('\n')}</p>
+            {question.map(({
+                question_id,
+                question_title,
+                descriptions
+            }) => (
+                <div key={question_id}>
+                    <h1 className="quest-title">Question {question_id} : {question_title}</h1>
+                    <p className="quest-content" >{descriptions.split('\\n').join('\n')}</p>
                 </div>
             ))}
         </div>

@@ -14,14 +14,20 @@ const CodeEditor = ({ question }) => {
         { value: 'javascript', label: 'Javascript (node v14.7.0)' },
         { value: 'cpp', label: 'C++ (g++ 9.2.1)' },
         { value: 'python', label: 'Python (3.9.1)' },
-        { value: 'java', label: 'Java (17.0.1)' }
-    ]
+        { value: 'java', label: 'Java (17.0.1)' },
+    ];
 
+    const [defaultCode, setDefaultCode] = useState('');
     const [code, setCode] = useState('');
     const [lang, setLang] = useState(langOptions[0].value);
     const [theme, setTheme] = useState('vs-dark');
     const [currentOutput, setCurrentOutput] = useState();
     const [output, setOutput] = useState([]);
+
+    const handleDefaultCode = value => {
+        setDefaultCode(value);
+        setCode(value);
+    }
 
     const changeTheme = () => {
         if (theme === 'light') setTheme('vs-dark');
@@ -65,6 +71,14 @@ const CodeEditor = ({ question }) => {
 
     return(
         <div className="right">
+            {question.map(({
+                question_id,
+                init_js,
+                init_cpp,
+                init_py,
+                init_java
+            }) => (
+            <div key={question_id}>
             <Navbar bg="dark" variant="dark" className="shadow-down" sticky="top">
                 <Nav className="container-fluid">
                     <Nav.Item>
@@ -74,12 +88,19 @@ const CodeEditor = ({ question }) => {
                         </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="me-auto">
-                        <ToggleButton className="icon-wrapper" onClick={() => setCode('')} >
+                        <ToggleButton className="icon-wrapper" onClick={() => setCode(defaultCode)} >
                             <HiRefresh className="icon" color="white"/>
                         </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="ml-auto">
-                        <Form.Select className="language" onChange={e => setLang(e.target.value)}>
+                        <Form.Select className="language" onChange={e => {
+                            const l = e.target.value;
+                            setLang(l);
+                            if (l === "python") handleDefaultCode(init_py);
+                            else if (l === "cpp") handleDefaultCode(init_cpp);
+                            else if (l === "java") handleDefaultCode(init_java);
+                            else handleDefaultCode(init_js);
+                        }}>
                             {langOptions.map(lang => (
                                 <option key={lang.value} value={lang.value}>{lang.label}</option>
                             ))}
@@ -87,14 +108,16 @@ const CodeEditor = ({ question }) => {
                     </Nav.Item>
                 </Nav>
             </Navbar>
+            </div> 
+            ))}
             
             <Editor
                 className="monaco-ide"
-                width="100%"
+                width="99%"
                 theme={theme}
                 defaultLanguage="javascript"
                 language={lang}
-                defaultValue="// Enter your code here"
+                defaultValue={defaultCode}
                 value={code}
                 onChange={(value) => setCode(value)}
                 onMount={handleEditorDidMount}

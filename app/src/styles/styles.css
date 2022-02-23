@@ -83,7 +83,7 @@
 
 .problem {
     text-align: left;
-    padding: 30px 50px;
+    padding: 40px 60px;
     background-color: white;
     color: black;
     height: 100%;
@@ -92,7 +92,7 @@
 
 .quest-title {
     font-size: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 .quest-content {
