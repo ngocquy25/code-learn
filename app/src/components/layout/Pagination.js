@@ -11,10 +11,20 @@ const PaginationBasic = (props) => {
     const pageNumbers = [];
     for (let i = 1; i <= totalQuests; i++) pageNumbers.push(i);
 
+    const handleNextPage = () => {
+        let next = (props.current === totalQuests)? props.current: props.current + 1;
+        props.paginate(next);
+    }
+    
+    const handlePrevPage = () => {
+        let prev = (props.current > 1)? (props.current - 1) : 1;
+        props.paginate(prev);
+    }
+
     return (
         <Pagination size='sm' className="page">
             <Pagination.First id="paginate" onClick={() => props.paginate(1)}/>
-            <Pagination.Prev id="paginate" onClick={() => props.prevpage()}/>
+            <Pagination.Prev id="paginate" onClick={handlePrevPage}/>
             {/* {pageNumbers.map(number => (
                 <Pagination.Item 
                 id={pageNumbers[current - 1] === number ? "paginate-active" : "paginate"}
@@ -23,7 +33,7 @@ const PaginationBasic = (props) => {
                     {question[number-1].question_id}
                 </Pagination.Item>
             ))} */}
-            <Pagination.Next id="paginate" onClick={() => props.nextpage()}/>
+            <Pagination.Next id="paginate" onClick={handleNextPage}/>
             <Pagination.Last id="paginate" onClick={() => props.paginate(totalQuests)}/>
         </Pagination>
     );

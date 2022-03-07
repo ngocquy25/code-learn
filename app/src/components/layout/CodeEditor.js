@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import Editor from "@monaco-editor/react";
+// import { ResponsiveMonacoEditor } from "responsive-react-monaco-editor";
 import { Nav, Button, Navbar, Form, ToggleButton } from "react-bootstrap";
 import { CgSun } from "react-icons/cg";
 import { HiMoon, HiRefresh } from "react-icons/hi";
@@ -24,9 +25,14 @@ const CodeEditor = ({ question }) => {
     const [currentOutput, setCurrentOutput] = useState();
     const [output, setOutput] = useState([]);
 
-    const handleDefaultCode = value => {
-        setDefaultCode(value);
-        setCode(value);
+    const handleLanguage = (e, init_code) => {
+        let l = e.target.value
+        setLang(l);
+        if (l === "python") l = "py";
+        else if (l === "javascript") l = "js";
+        let c = init_code.find(x => x._language === l)._function;
+        setDefaultCode(c);
+        setCode(c);
     }
 
     const changeTheme = () => {
@@ -42,16 +48,20 @@ const CodeEditor = ({ question }) => {
 
     const handleSubmit = async () => {
         setCurrentOutput(question[0].question_id);
+        let l = lang;
+        if (l === "python") l = "py";
+        else if (l === "javascript") l = "js";
 
         let content = JSON.stringify({
-            questionID: question[0].question_id,
-            codeData: editorRef.current.getValue()
+            question: question[0].question_id,
+            language: l,
+            code: code
         });
 
         console.log("post:", content);
 
         try {
-            const res = await fetch('https://codelearnapi.herokuapp.com/runcode', {
+            const res = await fetch('http://localhost:3001/submit', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
@@ -73,10 +83,7 @@ const CodeEditor = ({ question }) => {
         <div className="right">
             {question.map(({
                 question_id,
-                init_js,
-                init_cpp,
-                init_py,
-                init_java
+                init_code
             }) => (
             <div key={question_id}>
             <Navbar bg="dark" variant="dark" className="shadow-down" sticky="top">
@@ -93,14 +100,7 @@ const CodeEditor = ({ question }) => {
                         </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="ml-auto">
-                        <Form.Select className="language" onChange={e => {
-                            const l = e.target.value;
-                            setLang(l);
-                            if (l === "python") handleDefaultCode(init_py);
-                            else if (l === "cpp") handleDefaultCode(init_cpp);
-                            else if (l === "java") handleDefaultCode(init_java);
-                            else handleDefaultCode(init_js);
-                        }}>
+                        <Form.Select className="language" onChange={e => handleLanguage(e, init_code)}>
                             {langOptions.map(lang => (
                                 <option key={lang.value} value={lang.value}>{lang.label}</option>
                             ))}
@@ -112,7 +112,6 @@ const CodeEditor = ({ question }) => {
             ))}
             
             <Editor
-                className="monaco-ide"
                 width="99%"
                 theme={theme}
                 defaultLanguage="javascript"
@@ -126,15 +125,16 @@ const CodeEditor = ({ question }) => {
                     tabSize: 4,
                     minimap: {
                         enabled: false
-                    }
+                    },
                 }}
+                
             />
                
             <Testcase question={question} current={currentOutput} output={output}/>
 
             <Navbar bg="dark" variant="dark" className="footer shadow-up">
                 <Button className="btn-submit" variant="primary" type="submit"
-                    onClick={handleSubmit}>Run code</Button>  
+                    onClick={handleSubmit}>Submit</Button>  
             </Navbar>
         </div>
     );

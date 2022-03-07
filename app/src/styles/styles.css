@@ -96,7 +96,7 @@
 }
 
 .quest-content {
-    font-size: 16px;
+    font-size: 15px;
     white-space: pre-wrap;
 }
 
@@ -124,17 +124,11 @@
     font-size: 14px;
 }
 
-.editor-container {
-    width: 99%;
-}
-
 .testcase {
     color: white;
-    overflow-y: scroll;
     width: 100%;
     position: absolute;
     bottom: 74px;
-
 }
 
 .accordion-button {
@@ -152,39 +146,60 @@
 }
 
 .accordion-button::after {
-    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z'/></svg>");
 }
 
 .accordion-button:not(.collapsed)::after {
-    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'><path fill-rule='evenodd' d='M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z'/></svg>");
 }
 
 .accordion-body {
     background-color: rgb(41, 41, 41);
 }
 
-.testcase-title {
-    font-size: 18px;
-    font-weight: 500;
+.testcase-header {
+    font-size: 20px;
+    font-weight: 700;
     margin-top: 6px;
 }
 
-#test-content {
-    line-height: 1.5em;
-    height: 100%;
+#testcase-wrapper {
+    height: 200px;
     overflow-y: scroll;
-    font-size: 14px;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.nav.nav-pills .nav-link:not(.active) {
+    color: #2970F4;
+    border: 0;
+    border-radius: 0;
+}
+
+.nav.nav-pills .nav-link.active {
+    background-color: rgba(155, 155, 155, 0.1);
+    color: #ffffff;
+    border: 0;
+    border-radius: 0;
+}
+
+#testcase-content {
+    line-height: 1em;
+    height: 200px;
+    overflow-y: scroll;
+    font-size: 15px;
+    background-color: rgba(155, 155, 155, 0.1);
 }
 
 .field {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
-    color: aquamarine;
+    color: #2970F4;
     padding: 10px;
 }
 
 .content {
-    font-size: 16px;
+    font-size: 14px;
     white-space: pre-wrap;
     padding: 10px;
 }
@@ -225,4 +240,14 @@
     size: 20;
     color: white;
     background-color: transparent;
+}
+
+.icon-check {
+    size: 20;
+    color: rgb(28, 206, 28);
+}
+
+.icon-x {
+    size: 20;
+    color: red;
 }

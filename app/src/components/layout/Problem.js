@@ -2,7 +2,6 @@ import React from "react";
 import '../../styles/styles.css';
 
 const Problem = ({ question }) => {
-    console.log(question)
     return(
         <div className="problem">
             {question.map(({

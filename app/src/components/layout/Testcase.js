@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Tab, Nav, Accordion } from "react-bootstrap";
+import { BsCheckLg, BsXLg } from "react-icons/bs";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/styles.css';
@@ -15,90 +16,112 @@ const Testcase = ({question, current, output }) => {
         <div className="testcase">
             {question.map(({
                 question_id,
-                testcase_input_1,
-                testcase_output_1,
-                testcase_input_2,
-                testcase_output_2
+                test_case
             }) => (
-                <div key={question_id}>
-                    <Accordion flush >
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header className="testcase-title">TEST CASE</Accordion.Header>
-                            <Accordion.Body>
-                                <Tab.Container defaultActiveKey="first">
-                                    <Row>
-                                        <Col sm={3}>
-                                            <Nav variant="pills" className="flex-column">
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="first">Testcase 1</Nav.Link>
-                                                </Nav.Item>
-                                                <Nav.Item>
-                                                    <Nav.Link eventKey="second">Testcase 2</Nav.Link>
-                                                </Nav.Item>
-                                            </Nav>
-                                        </Col>
-                                        <Col id="test-content">
-                                            <Tab.Content>
-                                                <Tab.Pane eventKey="first">
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Input:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            {getText(testcase_input_1)}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Expected Output:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            {getText(testcase_output_1)}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Actual Output:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            { current === question_id? getText(output[0].actualOutput) : '' }
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Message:</Col>
-                                                        <Col className="content" sm={6}>
-                                                            { current === question_id? getText(output[0].Message) : '' }
-                                                        </Col>
-                                                    </Row>
-                                                </Tab.Pane>
-                                                <Tab.Pane eventKey="second">
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Input:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            {getText(testcase_input_2)}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Expected Output:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            {getText(testcase_output_2)}
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Actual Output:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            { current === question_id? getText(output[1].actualOutput) : '' }
-                                                        </Col>
-                                                    </Row>
-                                                    <Row>
-                                                        <Col className="field" sm={5}>Message:</Col>
-                                                        <Col className="content" sm={7}>
-                                                            { current === question_id? getText(output[1].Message) : '' }
-                                                        </Col>
-                                                    </Row>
-                                                </Tab.Pane>
-                                            </Tab.Content>
-                                        </Col>
-                                    </Row>
-                                </Tab.Container>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
+            <Accordion flush key={question_id}>
+                <Accordion.Item eventKey="0">
+                    <Accordion.Header className="testcase-header">TEST CASE</Accordion.Header>
+                    <Accordion.Body>
+                        <Tab.Container defaultActiveKey={1} >
+                            { current !== question_id?
+                            <Row>
+                                <Col sm={3} id="testcase-wrapper">
+                                    <Nav variant="pills" className="flex-column">
+                                    {test_case.map(({
+                                        testcase_id
+                                    }) => (
+                                        <Nav.Item key={testcase_id}>
+                                            <Nav.Link eventKey={testcase_id}>Test Case {testcase_id}</Nav.Link>
+                                        </Nav.Item>                                     
+                                    ))}                                        
+                                    </Nav> 
+                                </Col>
+                                <Col id="testcase-content">
+                                    <Tab.Content>
+                                    {test_case.map(({
+                                        testcase_id,
+                                        _input,
+                                        _output
+                                    }) => (
+                                        <Tab.Pane eventKey={testcase_id} key={testcase_id}>
+                                            <Row>
+                                                <Col className="field" sm={4}>Input:</Col>
+                                                <Col className="content" sm={6}>{getText(_input)}</Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Expected Output:</Col>
+                                                <Col className="content" sm={6}>{getText(_output)}</Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Actual Output:</Col>
+                                                <Col className="content" sm={6}></Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Message:</Col>
+                                                <Col className="content" sm={6}></Col>
+                                            </Row>                                                                                               
+                                        </Tab.Pane>
+                                    ))}
+                                    </Tab.Content>
+                                </Col>
+                            </Row>:
+                            <Row>
+                                <Col sm={3} id="testcase-wrapper">
+                                    <Nav variant="pills" className="flex-column">
+                                    {output.map(({
+                                        id, message
+                                    }) => (
+                                        <Nav.Item key={id}>
+                                            <Nav.Link eventKey={id}>
+                                                <Row>
+                                                    <Col>Test Case {id}</Col>
+                                                    <Col sm={3}>
+                                                        { message === "Right answer"? 
+                                                            <BsCheckLg className="icon-check"/> 
+                                                            : <BsXLg className="icon-x"/>}
+                                                    </Col>
+                                                </Row>
+                                            </Nav.Link>
+                                        </Nav.Item>                                     
+                                    ))}
+                                    </Nav>
+                                </Col>
+                                <Col id="testcase-content">
+                                    <Tab.Content>
+                                    {output.map(({
+                                        id,
+                                        input,
+                                        expectedOutput,
+                                        actualOutput,
+                                        message
+                                    }) => (
+                                        <Tab.Pane eventKey={id} key={id}>
+                                            <Row>
+                                                <Col className="field" sm={4}>Input:</Col>
+                                                <Col className="content" sm={6}>{getText(input)}</Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Expected Output:</Col>
+                                                <Col className="content" sm={6}>{getText(expectedOutput)}</Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Actual Output:</Col>
+                                                <Col className="content" sm={6}>{getText(actualOutput)}</Col>
+                                            </Row>
+                                            <Row>
+                                                <Col className="field" sm={4}>Message:</Col>
+                                                <Col className="content" sm={6}>{getText(message)}</Col>
+                                            </Row>                                                        
+                                        </Tab.Pane>
+                                    ))}
+                                    </Tab.Content>
+                                </Col>
+                            </Row>                            
+                            }
+                        </Tab.Container>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
             ))}
         </div>
     )
