@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../../styles/styles.css';
 
 
-const Testcase = ({question, current, output }) => {
+const Testcase = ({question, current, output}) => {
 
     const getText = text => {
         return text.split('\\n').join('\n');
@@ -18,7 +18,7 @@ const Testcase = ({question, current, output }) => {
                 question_id,
                 test_case
             }) => (
-            <Accordion flush key={question_id}>
+            <Accordion key={question_id} defaultActiveKey="0" flush>
                 <Accordion.Item eventKey="0">
                     <Accordion.Header className="testcase-header">TEST CASE</Accordion.Header>
                     <Accordion.Body>

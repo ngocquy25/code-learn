@@ -10,7 +10,7 @@ const Problem = ({ question }) => {
                 descriptions
             }) => (
                 <div key={question_id}>
-                    <h1 className="quest-title">Question {question_id} : {question_title}</h1>
+                    <h1 className="quest-title">Question {question_id}: {question_title}</h1>
                     <p className="quest-content" >{descriptions.split('\\n').join('\n')}</p>
                 </div>
             ))}

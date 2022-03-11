@@ -22,19 +22,11 @@ const PaginationBasic = (props) => {
     }
 
     return (
-        <Pagination size='sm' className="page">
-            <Pagination.First id="paginate" onClick={() => props.paginate(1)}/>
-            <Pagination.Prev id="paginate" onClick={handlePrevPage}/>
-            {/* {pageNumbers.map(number => (
-                <Pagination.Item 
-                id={pageNumbers[current - 1] === number ? "paginate-active" : "paginate"}
-                key={number}
-                onClick={() => props.paginate(number)}>
-                    {question[number-1].question_id}
-                </Pagination.Item>
-            ))} */}
-            <Pagination.Next id="paginate" onClick={handleNextPage}/>
-            <Pagination.Last id="paginate" onClick={() => props.paginate(totalQuests)}/>
+        <Pagination className="paginate">
+            <Pagination.First id="paginate-item" onClick={() => props.paginate(1)}/>
+            <Pagination.Prev id="paginate-item" onClick={handlePrevPage}/>
+            <Pagination.Next id="paginate-item" onClick={handleNextPage}/>
+            <Pagination.Last id="paginate-item" onClick={() => props.paginate(totalQuests)}/>
         </Pagination>
     );
 };
