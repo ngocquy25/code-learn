@@ -1,0 +1,62 @@
+.problem {
+    text-align: left;
+    padding: 20px 30px;
+    color: white;
+    white-space: pre-wrap;
+    height: 85vh;
+    overflow-y: scroll;
+}
+
+.problem-header {
+    width: 100%;
+    height: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.name {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.level {
+    font-size: 13px;
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.level-green {
+    color: rgb(28, 206, 28);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.level-yellow {
+    color: rgb(255, 166, 0);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.level-red {
+    color: red;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.problem-body {
+    font-size: 15px;
+}
+
+.problem-statement {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.field-content {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px;
+    background-color: rgba(155, 155, 155, 0.1);
+    border-radius: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}

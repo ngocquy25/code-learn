@@ -1,0 +1,42 @@
+.shadow-down {
+    box-shadow: inset 0 -2px 0 rgb(0 0 0 / 20%);
+}
+
+.shadow-up {
+    box-shadow: inset 0 2px 0 rgb(0 0 0 / 20%);
+}
+
+.first-section {
+    margin-left: 20px;
+}
+
+.btn-toggle {
+    border: 0;
+    background-color: transparent;
+}
+
+.btn-toggle:hover {
+    background-color: transparent;
+}
+
+.icon {
+    height: 22px;
+    width: auto;
+    color: white;
+}
+
+.select-language {
+    float: right;
+    width: 180px;
+    background-color: transparent;
+    color: white;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.btn-submit {
+    position: absolute;
+    right: 20px;
+    width: 100px;
+    font-weight: 600;
+}
