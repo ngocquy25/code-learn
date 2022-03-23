@@ -1,0 +1,36 @@
+.first-section {
+    margin-left: 20px;
+}
+
+.btn-toggle {
+    border: 0;
+    background-color: transparent;
+}
+
+.btn-toggle:hover {
+    background-color: transparent;
+}
+
+.icon {
+    height: 22px;
+    width: auto;
+    color: white;
+}
+
+.select-language-desc {
+    margin-left: 30px;
+    width: 150px;
+    background-color: transparent;
+    color: white;
+    margin: 5px;
+    font-size: 14px;
+}
+
+.select-language {
+    float: right;
+    width: 180px;
+    background-color: transparent;
+    color: white;
+    margin: 5px;
+    font-size: 14px;
+}

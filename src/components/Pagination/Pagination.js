@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Pagination, Button } from "react-bootstrap";
+import { Navbar, Button } from "react-bootstrap";
 
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Pagination.css';
 
 
-const PaginationBasic = (props) => {
+const Pagination = (props) => {
     
     const totalQuests = props.question.length;
 
@@ -26,23 +26,19 @@ const PaginationBasic = (props) => {
     }
 
     return (
-        // <Pagination className="paginate">
-        //     {/* <Pagination.First id="paginate-item" onClick={() => props.paginate(1)}/> */}
-        //     <Pagination.Prev id="paginate-item" onClick={handlePrevPage}/>
-        //     <Pagination.Next id="paginate-item" onClick={handleNextPage}/>
-        //     {/* <Pagination.Last id="paginate-item" onClick={() => props.paginate(totalQuests)}/> */}
-        // </Pagination>
-        <div className="pagination">
-            <Button className="btn-chevron" onClick={handlePrevPage}>
-                <BsChevronLeft className="icon-chevron" />
-            </Button>
-            <div className="paginate-text">Previous</div>
-            <div className="paginate-text">Next</div>
-            <Button className="btn-chevron" onClick={handleNextPage}>
-                <BsChevronRight className="icon-chevron" />
-            </Button>
-        </div>
+        <Navbar bg="dark" variant="dark" className="footer shadow-up">
+            <div className="pagination">
+                <Button className="btn-chevron" onClick={handlePrevPage}>
+                    <BsChevronLeft className="icon-chevron" />
+                </Button>
+                <div className="paginate-text">Previous</div>
+                <div className="paginate-text">Next</div>
+                <Button className="btn-chevron" onClick={handleNextPage}>
+                    <BsChevronRight className="icon-chevron" />
+                </Button>
+            </div>
+        </Navbar>
     );
 };
 
-export default PaginationBasic;
+export default Pagination;
