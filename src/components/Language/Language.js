@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { Nav, Navbar, Form, ToggleButton } from "react-bootstrap";
 import { HiMoon, HiRefresh } from "react-icons/hi";
@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Language.css';
 
 
-const Language = ({ question, theme, changeTheme, defaultCode, setCode, handleLanguage }) => {
+const Language = (props) => {
     const langOptions = [
         { value: 'none', label: 'Select language'},
         { value: 'javascript', label: 'Javascript (node v14.7.0)' },
@@ -17,20 +17,9 @@ const Language = ({ question, theme, changeTheme, defaultCode, setCode, handleLa
         { value: 'java', label: 'Java (17.0.1)' },
     ];
 
-    const descLangOptions = [
-        { value: 'en', label: 'English'},
-        { value: 'vi', label: 'Tiếng Việt' },
-    ];
-
-    const [descLanguage, setDescLanguage] = useState('en');
-    const changeDescLanguage = () => {
-        if (descLanguage === 'en') setDescLanguage('vi');
-        else setDescLanguage('en');
-    }
-
     return(
         <>
-            {question.map(({
+            {props.question.map(({
                 question_id,
                 init_code
             }) => (
@@ -38,30 +27,18 @@ const Language = ({ question, theme, changeTheme, defaultCode, setCode, handleLa
             <Navbar bg="dark" variant="dark" className="shadow-down">
                 <Nav className="container-fluid">
                     <Nav.Item className="first-section">
-                        <ToggleButton className="btn-toggle" onClick={changeTheme} >
-                            {theme === "light" ? 
+                        <ToggleButton className="btn-toggle" onClick={props.changeTheme} >
+                            {props.theme === "light" ? 
                             <HiMoon className="icon"/> : <BsSunFill className="icon"/>}
                         </ToggleButton>
                     </Nav.Item>
-                    <Nav.Item >
-                        <ToggleButton className="btn-toggle" onClick={() => setCode(defaultCode)} >
+                    <Nav.Item className="me-auto">
+                        <ToggleButton className="btn-toggle" onClick={props.setCode} >
                             <HiRefresh className="icon"/>
                         </ToggleButton>
                     </Nav.Item>
-                    <Nav.Item className="me-auto">
-                        {/* <Form.Select className="select-language-desc" >
-                            {descLangOptions.map(lang => (
-                            <option key={lang.value} value={lang.value}>{lang.label}</option>
-                            ))}
-                        </Form.Select> */}
-                        <ToggleButton className="btn-toggle" onClick={changeDescLanguage}>
-                            {descLanguage === "vi"?
-                                <span>ENG</span>:<span>VIE</span>
-                            }
-                        </ToggleButton>
-                    </Nav.Item>
                     <Nav.Item className="ml-auto">
-                        <Form.Select className="select-language" onChange={e => handleLanguage(e, init_code)}>
+                        <Form.Select className="select-language" onChange={e => props.handleLanguage(e, init_code)}>
                             {/* <option>Select language</option> */}
                             {langOptions.map(lang => (
                             <option key={lang.value} value={lang.value}>{lang.label}</option>

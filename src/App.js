@@ -17,7 +17,6 @@ import './App.css';
 function App() {
   const [questions, setQuestion] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [status, setStatus] = useState(true);
   const [defaultCode, setDefaultCode] = useState('');
   const [code, setCode] = useState('');
   const [lang, setLang] = useState('none');
@@ -27,12 +26,16 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const handlePagination = (page) => {
-    // setStatus(false);
     setCurrentPage(page);
   }
 
   // Get current question
   const currentQuestion = questions.slice(currentPage - 1, currentPage);
+
+  const changeTheme = () => {
+    if (theme === 'light') setTheme('vs-dark');
+    else setTheme('light');
+  }
 
   const handleLanguage = (e, init_code) => {
     let l = e.target.value
@@ -47,11 +50,6 @@ function App() {
       setDefaultCode(c);
       setCode(c);
     }
-  }
-
-  const changeTheme = () => {
-    if (theme === 'light') setTheme('vs-dark');
-    else setTheme('light');
   }
 
   const handleSubmit = async () => {
@@ -137,23 +135,19 @@ function App() {
               question={currentQuestion}
               theme={theme}
               changeTheme={changeTheme}
-              defaultCode={defaultCode}
-              setCode={setCode}
-              handleLanguage={handleLanguage}
-            />
+              setCode={() => setCode(defaultCode)}
+              handleLanguage={handleLanguage}/>
             <CodeEditor 
               question={currentQuestion} 
               theme={theme}
               lang={lang} 
               code={code} 
               defaultCode={defaultCode} 
-              setCode={setCode} 
-            />
+              setCode={setCode}/>
             <Testcase 
               question={currentQuestion} 
               current={currentOutput} 
-              output={output}
-            />
+              output={output}/>
             <Submit handleSubmit={handleSubmit}/>
             {loading && <Loading/>}
           </div>

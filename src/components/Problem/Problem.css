@@ -20,9 +20,11 @@
 }
 
 .level {
-    font-size: 13px;
+    font-size: 14px;
     color: grey;
     margin-bottom: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .level-green {
@@ -41,6 +43,15 @@
     color: red;
     text-transform: uppercase;
     font-weight: 600;
+}
+
+.select-language-desc {
+    width: 120px;
+    background-color: transparent;
+    color: white;
+    font-size: 14px;
+    margin-left: auto; 
+    margin-right: 0;
 }
 
 .problem-body {

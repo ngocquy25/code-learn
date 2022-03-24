@@ -17,15 +17,6 @@
     color: white;
 }
 
-.select-language-desc {
-    margin-left: 30px;
-    width: 150px;
-    background-color: transparent;
-    color: white;
-    margin: 5px;
-    font-size: 14px;
-}
-
 .select-language {
     float: right;
     width: 180px;

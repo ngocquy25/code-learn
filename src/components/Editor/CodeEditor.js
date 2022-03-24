@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './Editor.css';
 
 
-const CodeEditor = ({ question, theme, lang, code, defaultCode, setCode }) => {
+const CodeEditor = ({ theme, lang, code, defaultCode, setCode }) => {
     const editorRef = useRef(null);
 
     const handleEditorDidMount = (editor, monaco) => {
