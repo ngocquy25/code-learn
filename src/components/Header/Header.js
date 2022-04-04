@@ -5,12 +5,12 @@ import { HiMoon, HiRefresh } from "react-icons/hi";
 import { BsSunFill } from "react-icons/bs";
 
 import 'bootstrap/dist/css/bootstrap.css';
-import './Language.css';
+import './Header.css';
 
 
-const Language = (props) => {
+const Header = (props) => {
     const langOptions = [
-        { value: 'none', label: 'Select language'},
+        { value: '', label: 'Select language'},
         { value: 'javascript', label: 'Javascript (node v14.7.0)' },
         { value: 'cpp', label: 'C++ (g++ 9.2.1)' },
         { value: 'python', label: 'Python (3.9.1)' },
@@ -19,11 +19,11 @@ const Language = (props) => {
 
     return(
         <>
-            {props.question.map(({
+            {/* {props.question.map(({
                 question_id,
                 init_code
             }) => (
-            <div key={question_id}>
+            <div key={question_id}> */}
             <Navbar bg="dark" variant="dark" className="shadow-down">
                 <Nav className="container-fluid">
                     <Nav.Item className="first-section">
@@ -38,20 +38,19 @@ const Language = (props) => {
                         </ToggleButton>
                     </Nav.Item>
                     <Nav.Item className="ml-auto">
-                        <Form.Select className="select-language" onChange={e => props.handleLanguage(e, init_code)}>
-                            {/* <option>Select language</option> */}
+                        <Form.Select className="select-language" onChange={props.handleLanguage}>
                             {langOptions.map(lang => (
-                            <option key={lang.value} value={lang.value}>{lang.label}</option>
+                                <option key={lang.value} value={lang.value}>{lang.label}</option>
                             ))}
                         </Form.Select>
                     </Nav.Item>
                 </Nav>
             </Navbar>
-            </div> 
-            ))}
+            {/* </div> 
+            ))} */}
         </>
     );
 };
 
-export default Language;
+export default Header;
 

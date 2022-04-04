@@ -46,13 +46,14 @@
 }
 
 .select-language-desc {
-    width: 120px;
     background-color: transparent;
-    color: white;
+    width: 160px;
+    color: black;
     font-size: 14px;
     margin-left: auto; 
     margin-right: 0;
 }
+
 
 .problem-body {
     font-size: 15px;

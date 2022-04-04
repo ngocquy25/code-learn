@@ -1,21 +1,16 @@
 import React, { useState } from "react";
 
-import { Form } from "react-bootstrap";
+import ReactFlagsSelect from 'react-flags-select';
 
 import './Problem.css';
 
 const Problem = ({ question }) => {
 
-    const [descLanguage, setDescLanguage] = useState('en');
+    const [selected, setSelected] = useState('US');
 
-    const handleDescLanguage = (e) => {
-        setDescLanguage(e.target.value);
+    const handleSelect = (value) => {
+        setSelected(value);
     }
-
-    const descLangOptions = [
-        { value: 'en', label: 'English'},
-        { value: 'vi', label: 'Tiếng Việt' }     
-    ];
 
     return(
         <div className="problem">
@@ -30,23 +25,25 @@ const Problem = ({ question }) => {
                 <div key={question_id}>
                     <div className="problem-header">
                         <div className="name">
-                            {descLanguage === 'en'? en.question_title: vi.question_title}
+                            {selected === 'US'? en.question_title: vi.question_title}
                         </div>
                         <div className="level">
-                            {descLanguage === "en"? <span>Difficulty:</span>: <span>Độ khó:</span>} 
+                            {selected === 'US'? <span>Difficulty:</span>: <span>Độ khó:</span>} 
                             {_level === "easy" && <span className="level-green"> {_level}</span>}
                             {_level === "medium" && <span className="level-yellow"> {_level}</span>}
                             {_level === "hard" && <span className="level-red"> {_level}</span>}
-                            <Form.Select className="select-language-desc" onChange={handleDescLanguage}>
-                                {descLangOptions.map(lang => (
-                                    <option key={lang.value} value={lang.value}>{lang.label}</option>
-                                ))}
-                            </Form.Select>
+                            <ReactFlagsSelect
+                                className="select-language-desc"
+                                selected={selected}
+                                onSelect={handleSelect}
+                                countries={["US", "VN"]}
+                                customLabels={{"US": "English","VN": "Tiếng Việt"}}
+                            />
                         </div>
                     </div>
-                    {descLanguage === 'en'? 
+                    {selected === 'US'? 
                     <div className="problem-body">
-                        <h6>Problem Statement</h6>
+                        <h6>Problem Statement</h6>                
                         <div className="problem-statement">{en.problem}</div>
                         <h6>Input format:</h6>
                         <div className="field-content">{input_format}</div>

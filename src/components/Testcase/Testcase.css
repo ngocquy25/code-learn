@@ -66,14 +66,14 @@
 }
 
 .nav.nav-pills .nav-link:not(.active) {
-    color: #2970F4;
+    color: darkgray;
     border: 0;
     border-radius: 0;
 }
 
 .nav.nav-pills .nav-link.active {
     background-color: rgba(155, 155, 155, 0.1);
-    color: #ffffff;
+    color: #2970F4;
     border: 0;
     border-radius: 0;
 }

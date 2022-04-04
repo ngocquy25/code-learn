@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
+
 import SplitPane from 'react-split-pane';
 import CodeEditor from './components/Editor/CodeEditor';
 import Problem from './components/Problem/Problem';
 import Testcase from './components/Testcase/Testcase';
 import Loading from './components/Loading/Loading';
-import Language from './components/Language/Language';
+import Header from './components/Header/Header';
 import Pagination from './components/Pagination/Pagination';
 import Submit from './components/Submit/Submit';
+import Alerting from './components/Alerting/Alerting';
+
 import { Container, Tab, Tabs } from 'react-bootstrap';
 import { TiLockClosed } from "react-icons/ti";
 
@@ -19,44 +22,51 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [defaultCode, setDefaultCode] = useState('');
   const [code, setCode] = useState('');
-  const [lang, setLang] = useState('none');
+  const [lang, setLang] = useState('');
   const [theme, setTheme] = useState('vs-dark');
   const [currentOutput, setCurrentOutput] = useState();
   const [output, setOutput] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [alert, setAlert] = useState(false);
 
-  const handlePagination = (page) => {
+  let currentQuestion = questions.slice(currentPage - 1, currentPage);
+
+  const handleDefaultCode = async (l) => {
+    if (l === "python") l = "py";
+    else if (l === "javascript") l = "js";
+    let c = l === '' ? '' : currentQuestion[0].init_code.find(x => x._language === l)._function;
+    setDefaultCode(c);
+    setCode(c);
+  };
+
+  const handlePagination = async (page) => {
     setCurrentPage(page);
+    currentQuestion = questions.slice(page - 1, page);
+    handleDefaultCode(lang);
   }
 
-  // Get current question
-  const currentQuestion = questions.slice(currentPage - 1, currentPage);
-
-  const changeTheme = () => {
+  const changeTheme = async () => {
     if (theme === 'light') setTheme('vs-dark');
     else setTheme('light');
   }
 
-  const handleLanguage = (e, init_code) => {
-    let l = e.target.value
-    if (l === "none") {
-      setDefaultCode('');
-      setCode('');
-    } else {
-      setLang(l);
-      if (l === "python") l = "py";
-      else if (l === "javascript") l = "js";
-      let c = init_code.find(x => x._language === l)._function;
-      setDefaultCode(c);
-      setCode(c);
-    }
+  const handleLanguage = async (e) => {
+    let l = e.target.value;
+    setLang(l);
+    handleDefaultCode(l);
   }
 
   const handleSubmit = async () => {
-    setCurrentOutput(currentQuestion[0].question_id);
     let l = lang;
+    if (l === '') {
+      setAlert(true);
+      return;
+    }
+    
     if (l === "python") l = "py";
     else if (l === "javascript") l = "js";
+
+    setCurrentOutput(currentQuestion[0].question_id);
 
     let content = JSON.stringify({
       question: currentQuestion[0].question_id,
@@ -131,7 +141,7 @@ function App() {
             />
           </div>
           <div className="right">
-            <Language 
+            <Header
               question={currentQuestion}
               theme={theme}
               changeTheme={changeTheme}
@@ -149,6 +159,7 @@ function App() {
               current={currentOutput} 
               output={output}/>
             <Submit handleSubmit={handleSubmit}/>
+            {alert && <Alerting setAlert={setAlert}/>}
             {loading && <Loading/>}
           </div>
         </SplitPane>

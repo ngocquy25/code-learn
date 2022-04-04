@@ -1,0 +1,16 @@
+.alerting-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.alerting {
+    margin-top: 15%;
+    width: fit-content;
+    height: 55px;
+    font-size: 14px;
+}

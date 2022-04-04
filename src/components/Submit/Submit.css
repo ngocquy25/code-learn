@@ -3,4 +3,22 @@
     right: 20px;
     width: 100px;
     font-weight: 600;
+    background-color: transparent;
+    border: 1px solid #FF8C00;
+    color: #FF8C00;
 }
+
+.btn-submit:hover {
+    background-color: #ff8C00;
+    border: 1px solid #FF8C00;
+    color: white;
+}
+
+.btn-submit:focus {
+    background-color: #ff8c00;
+    border: 1px solid #FF8C00;
+    color: white;
+    box-shadow: 0;
+}
+
+

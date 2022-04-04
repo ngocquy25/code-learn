@@ -4,29 +4,22 @@
     color: white;
 }
 
-/* .paginate-item {
-    font-size: 30px;
-    width: 40px;
-    text-align: center;
-    border-radius: 3px;
-    background-color: #2970F4;
-    border: 0;
-    color: white;
-}
-
-.paginate-item:hover:not(.active) {
-    background-color: rgb(100, 100, 100);
-    border-color: rgb(100, 100, 100);
-} */
-
 .btn-chevron {
     width: 34px;
     height: 34px;
-    background-color: #2970F4;
+    background-color: #FF8C00;
     border: 0;
     align-items: center;
     justify-content: center;
     text-align: center;
+}
+
+.btn-chevron:hover {
+    background-color: #FFC400;
+}
+
+.btn-chevron:focus {
+    background-color: #FF8C00;
 }
 
 .icon-chevron {

@@ -11,6 +11,10 @@
     background-color: transparent;
 }
 
+.btn-toggle:focus {
+    background-color: transparent;
+}
+
 .icon {
     height: 22px;
     width: auto;
